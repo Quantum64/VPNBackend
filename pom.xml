@@ -83,20 +83,27 @@
 				</executions>
 			</plugin>
 		</plugins>
-
-
-
-		<repositories>
-
-		</repositories>
-
-		<dependencies>
-			<dependency>
-				<groupId>com.google.inject</groupId>
-				<artifactId>guice</artifactId>
-				<version>3.0</version>
-			</dependency>
-		</dependencies>
-
 	</build>
+
+	<repositories>
+
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sparkjava</groupId>
+			<artifactId>spark-core</artifactId>
+			<version>2.5.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-configuration2</artifactId>
+			<version>2.1</version>
+		</dependency>
+	</dependencies>
 </project>
