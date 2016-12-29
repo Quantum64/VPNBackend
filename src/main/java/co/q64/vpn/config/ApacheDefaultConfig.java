@@ -17,7 +17,10 @@ public enum ApacheDefaultConfig {
 
 	//formatter:off
 	SERVER("server.properties",
-			new ConfigurationValue(ConfigurationKeys.SERVER_PORT, 80)
+			new ConfigurationValue(ConfigurationKeys.SERVER_PORT, 80),
+			new ConfigurationValue(ConfigurationKeys.SERVER_JKS_PATH, "/ssl/keystore.jks"),
+			new ConfigurationValue(ConfigurationKeys.SERVER_JKS_PASSWORD, "password"),
+			new ConfigurationValue(ConfigurationKeys.SERVER_URL, "http://example.com")
 			),
 	SQL("mysql.properties",
 			new ConfigurationValue(ConfigurationKeys.SQL_HOST, "localhosts"),
@@ -31,7 +34,7 @@ public enum ApacheDefaultConfig {
 			new ConfigurationValue(ConfigurationKeys.OAUTH_SECRET, "oauthsecret")
 			);
 	//formatter:on
-
+	
 	private String fileName;
 	private ConfigurationValue[] values;
 	private Configuration config;
@@ -134,6 +137,9 @@ public enum ApacheDefaultConfig {
 
 	public static class ConfigurationKeys {
 		public static String SERVER_PORT = "server-port";
+		public static String SERVER_JKS_PATH = "jks-path";
+		public static String SERVER_JKS_PASSWORD = "jks-password";
+		public static String SERVER_URL = "server-url";
 		public static String SQL_HOST = "mysql-host";
 		public static String SQL_PORT = "mysql-port";
 		public static String SQL_DB = "mysql-databse";

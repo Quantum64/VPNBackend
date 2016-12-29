@@ -12,6 +12,7 @@ public class ApacheConfig implements Config {
 	private @Inject Logger logger;
 
 	@Override
+	@Inject
 	public void load() {
 		for (ApacheDefaultConfig cfg : ApacheDefaultConfig.values()) {
 			logger.info("Config file location: " + cfg.loadFromFile());
@@ -22,6 +23,21 @@ public class ApacheConfig implements Config {
 	@Override
 	public int getServerPort() {
 		return ApacheDefaultConfig.SERVER.getInt(ConfigurationKeys.SERVER_PORT);
+	}
+
+	@Override
+	public String getJKSPath() {
+		return ApacheDefaultConfig.SERVER.getString(ConfigurationKeys.SERVER_JKS_PATH);
+	}
+
+	@Override
+	public String getJKSPassword() {
+		return ApacheDefaultConfig.SERVER.getString(ConfigurationKeys.SERVER_JKS_PASSWORD);
+	}
+
+	@Override
+	public String getServerURL() {
+		return ApacheDefaultConfig.SERVER.getString(ConfigurationKeys.SERVER_URL);
 	}
 
 	@Override
