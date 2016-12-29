@@ -6,6 +6,7 @@ public class UserData extends DatabaseTable {
 	private String id;
 	private String isNew;
 	private String isAdmin;
+	private String pass;
 	private long joinTime;
 	private long endTime;
 
@@ -13,6 +14,7 @@ public class UserData extends DatabaseTable {
 		this.id = new String();
 		this.isNew = String.valueOf(true);
 		this.isAdmin = String.valueOf(false);
+		this.pass = new String();
 		this.joinTime = System.currentTimeMillis();
 		this.endTime = System.currentTimeMillis();
 	}
@@ -62,5 +64,13 @@ public class UserData extends DatabaseTable {
 
 	public void setIsAdmin(String isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 }

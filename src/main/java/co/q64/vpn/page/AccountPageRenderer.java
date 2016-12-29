@@ -58,17 +58,44 @@ public class AccountPageRenderer implements PageRenderer {
 		result.append(BR);
 		result.append(BR);
 		result.append("Current pricing: $1/week of VPN access with guaranteed 100mb/s bandwidth, payable to site owner");
-		/*
-		result.append("Type access token below");
+		result.append(BR);
+		result.append(BR);
+		result.append("Redeem time code (you get this when your purchase more time)");
 		result.append(FORM_BEGIN_ACTION);
-		result.append("invite");
+		result.append("redeem");
 		result.append(FORM_END_ACTION);
 		result.append(FORM_TEXT_BEGIN);
 		result.append("code");
 		result.append(FORM_TEXT_END);
 		result.append(FORM_SUBMIT);
 		result.append(FORM_FINAL);
-		*/
+		if (Boolean.valueOf(data.getIsAdmin())) {
+			result.append(BR);
+			result.append(BR);
+			result.append("Generate access code (admin) [code name]");
+			result.append(FORM_BEGIN_ACTION);
+			result.append("genaccess");
+			result.append(FORM_END_ACTION);
+			result.append(FORM_TEXT_BEGIN);
+			result.append("code");
+			result.append(FORM_TEXT_END);
+			result.append(FORM_SUBMIT);
+			result.append(FORM_FINAL);
+			result.append(BR);
+			result.append(BR);
+			result.append("Generate time code (admin) [code name] [time in days]");
+			result.append(FORM_BEGIN_ACTION);
+			result.append("gentime");
+			result.append(FORM_END_ACTION);
+			result.append(FORM_TEXT_BEGIN);
+			result.append("code");
+			result.append(FORM_TEXT_END);
+			result.append(FORM_TEXT_BEGIN);
+			result.append("time");
+			result.append(FORM_TEXT_END);
+			result.append(FORM_SUBMIT);
+			result.append(FORM_FINAL);
+		}
 		result.append(END);
 		return result.toString();
 	}

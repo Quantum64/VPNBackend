@@ -1,5 +1,8 @@
 package co.q64.vpn.net;
 
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -16,8 +19,10 @@ import co.q64.vpn.objects.UserData;
 import co.q64.vpn.objects.CodeData.CodeUsage;
 import co.q64.vpn.page.AccountPageRenderer;
 import co.q64.vpn.page.BasicHTMLComponents;
+import co.q64.vpn.page.InvalidPageRenderer;
 import co.q64.vpn.page.InvitePageRenderer;
 import co.q64.vpn.page.LoginPageRenderer;
+import co.q64.vpn.util.IPSECUpdater;
 import co.q64.vpn.util.TimeUtil;
 
 import com.github.scribejava.apis.GitHubApi;
@@ -32,8 +37,10 @@ public class SparkServer implements Server {
 	private @Inject LoginPageRenderer loginPage;
 	private @Inject InvitePageRenderer invitePage;
 	private @Inject AccountPageRenderer accountPage;
+	private @Inject InvalidPageRenderer invalidPage;
 	private @Inject Database database;
 	private @Inject TimeUtil time;
+	private @Inject IPSECUpdater ipsec;
 
 	private OAuth20Service service;
 
@@ -104,8 +111,99 @@ public class SparkServer implements Server {
 			return null;
 		});
 
+		Spark.post("/redeem", (request, response) -> {
+			Session s = request.session();
+			UserData ud = s.attribute("data");
+			if (ud == null || !Boolean.valueOf(ud.getIsNew())) {
+				response.redirect("/");
+				return null;
+			}
+			String code = request.queryParams("code");
+			if (code == null || code.isEmpty()) {
+				response.redirect("/");
+				return null;
+			}
+			database.disconnect(code);
+			database.queryData(code);
+			CodeData data = database.getData(CodeData.class, code);
+			if (Boolean.valueOf(data.getIsValid()) && data.getUsage().equals(CodeUsage.TIME.name())) {
+				long time = ud.getEndTime();
+				if (time < System.currentTimeMillis()) {
+					time = System.currentTimeMillis();
+				}
+				time += TimeUnit.DAYS.toMillis(data.getAmount());
+				if (ipsec.get(ud.getId()) == null) {
+					StringBuilder pass = new StringBuilder();
+					for (int i = 0; i < 8; i++) {
+						char c = (char) (ThreadLocalRandom.current().nextInt(26) + 'a');
+						pass.append(c);
+					}
+					ipsec.update(ud.getId(), pass.toString());
+					ud.setPass(pass.toString());
+				}
+				ipsec.updateNow();
+				database.deleteData(data);
+				database.disconnect(code);
+				response.redirect("/");
+				return null;
+			}
+			database.disconnect(code);
+			response.redirect("/invalid");
+			return null;
+		});
+
+		Spark.post("/genaccess", (request, response) -> {
+			Session s = request.session();
+			UserData ud = s.attribute("data");
+			if (ud == null || !Boolean.valueOf(ud.getIsAdmin())) {
+				response.redirect("/");
+				return null;
+			}
+			String code = request.queryParams("code");
+			if (code == null || code.isEmpty()) {
+				response.redirect("/");
+				return null;
+			}
+			database.disconnect(code);
+			database.queryData(code);
+			CodeData data = database.getData(CodeData.class, code);
+			data.setIsValid(String.valueOf(true));
+			data.setUsage(CodeUsage.ACCESS.name());
+			database.disconnect(code);
+			response.redirect("/code/gen?name=" + data.getId());
+			return null;
+		});
+
+		Spark.post("/gentime", (request, response) -> {
+			Session s = request.session();
+			UserData ud = s.attribute("data");
+			if (ud == null || !Boolean.valueOf(ud.getIsAdmin())) {
+				response.redirect("/");
+				return null;
+			}
+			String code = request.queryParams("code");
+			if (code == null || code.isEmpty()) {
+				response.redirect("/");
+				return null;
+			}
+			String time = request.queryParams("time");
+			if (time == null || time.isEmpty()) {
+				response.redirect("/");
+				return null;
+			}
+			database.disconnect(code);
+			database.queryData(code);
+			CodeData data = database.getData(CodeData.class, code);
+			data.setIsValid(String.valueOf(true));
+			data.setAmount(Integer.parseInt(time));
+			data.setUsage(CodeUsage.TIME.name());
+			database.disconnect(code);
+			response.redirect("/code/gen?name=" + data.getId() + "&time=" + data.getAmount());
+			return null;
+		});
+
 		Spark.get("/invalid", (request, response) -> {
-			return BasicHTMLComponents.BEGIN + "Invalid code" + BasicHTMLComponents.END;
+			return invalidPage.render();
 		});
 
 		Spark.get("/logout", (request, response) -> {
@@ -136,6 +234,17 @@ public class SparkServer implements Server {
 			}
 			response.redirect("/");
 			return null;
+		});
+
+		Spark.get("/callback/*", (request, response) -> {
+			Session s = request.session();
+			String name = s.attribute("name");
+			String time = s.attribute("time");
+			if (time == null) {
+				return BasicHTMLComponents.BEGIN + "Your new access code is: " + name + BasicHTMLComponents.END;
+			} else {
+				return BasicHTMLComponents.BEGIN + "Your new time code for " + time + " days is: " + name + BasicHTMLComponents.END;
+			}
 		});
 	}
 }
