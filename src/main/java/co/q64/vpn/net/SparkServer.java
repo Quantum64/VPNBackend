@@ -14,6 +14,7 @@ import co.q64.vpn.api.net.Server;
 import co.q64.vpn.objects.CodeData;
 import co.q64.vpn.objects.UserData;
 import co.q64.vpn.objects.CodeData.CodeUsage;
+import co.q64.vpn.page.AccountPageRenderer;
 import co.q64.vpn.page.BasicHTMLComponents;
 import co.q64.vpn.page.InvitePageRenderer;
 import co.q64.vpn.page.LoginPageRenderer;
@@ -30,6 +31,7 @@ public class SparkServer implements Server {
 	private @Inject Config config;
 	private @Inject LoginPageRenderer loginPage;
 	private @Inject InvitePageRenderer invitePage;
+	private @Inject AccountPageRenderer accountPage;
 	private @Inject Database database;
 	private @Inject TimeUtil time;
 
@@ -72,7 +74,7 @@ public class SparkServer implements Server {
 			if (Boolean.valueOf(data.getIsNew())) {
 				return invitePage.render(data);
 			}
-			return "Hello";
+			return accountPage.render(data);
 		});
 
 		Spark.post("/invite", (request, response) -> {

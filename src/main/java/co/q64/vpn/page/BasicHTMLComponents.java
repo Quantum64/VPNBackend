@@ -1,7 +1,7 @@
 package co.q64.vpn.page;
 
 public class BasicHTMLComponents {
-	public static String BEGIN = "<html><head><script type=\"text/javascript\" src=\"https://raw.githubusercontent.com/mckamey/countdownjs/master/countdown.min.js\"></script></head><body>";
+	public static String BEGIN = "<html><head><script type=\"text/javascript\" src=\"https://cdn.rawgit.com/mckamey/countdownjs/master/countdown.js\"></script></head><body>";
 	public static String END = "</body></html>";
 	public static String BR = "<br>";
 	public static String SCRIPT_BEGIN = "<script>";
