@@ -1,47 +1,74 @@
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
+integrate/
 
-# Folder config file
-Desktop.ini
+###########
+# Eclipse #
+###########
 
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
+.classpath
+.project
+.settings/
 
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
+############
+# IntelliJ #
+############
 
-# Windows shortcuts
-*.lnk
+.idea/
+*.iml
+*.iws
 
-# =========================
-# Operating System Files
-# =========================
-
-# OSX
-# =========================
+#######
+# Mac #
+#######
 
 .DS_Store
-.AppleDouble
-.LSOverride
 
-# Thumbnails
+
+#########
+# Maven #
+#########
+
+log/
+target/
+
+###################
+# Compiled source #
+###################
+
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+############
+# Packages #
+############
+
+*.7z
+*.dmg
+*.gz
+*.iso
+*.rar
+*.tar
+*.zip
+
+######################
+# Logs and databases #
+######################
+
+*.log
+*.sql
+*.sqlite
+
+######################
+# OS generated files #
+######################
+
+.DS_Store
+.DS_Store?
 ._*
-
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
 .Spotlight-V100
-.TemporaryItems
 .Trashes
-.VolumeIcon.icns
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
+ehthumbs.db
+Thumbs.db
