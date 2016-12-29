@@ -9,4 +9,10 @@ public class BasicHTMLComponents {
 	public static String LINK_START = "<a href=\"";
 	public static String LINK_END = "\">";
 	public static String LINK_FINAL = "</a>";
+	public static String FORM_BEGIN_ACTION = "<form action=\"";
+	public static String FORM_END_ACTION = "\" method=\"post\">";
+	public static String FORM_FINAL = "</form>";
+	public static String FORM_TEXT_BEGIN = "<input type=\"text\" name=\"";
+	public static String FORM_TEXT_END = "\">";
+	public static String FORM_SUBMIT = "<button type=\"submit\">Submit</button>";
 }

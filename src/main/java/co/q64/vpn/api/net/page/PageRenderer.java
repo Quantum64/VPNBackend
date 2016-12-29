@@ -1,6 +1,6 @@
 package co.q64.vpn.api.net.page;
 
-import co.q64.vpn.api.objects.DatabaseTable;
+import co.q64.vpn.objects.UserData;
 
 /**
  * Renders a page on the server
@@ -13,5 +13,5 @@ public interface PageRenderer {
 	 * @param data the user to render the page for
 	 * @return the completed html
 	 */
-	public String render(DatabaseTable data);
+	public String render(UserData data);
 }

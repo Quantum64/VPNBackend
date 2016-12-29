@@ -38,6 +38,7 @@ import co.q64.vpn.api.config.Config;
 import co.q64.vpn.api.database.Database;
 import co.q64.vpn.api.log.Logger;
 import co.q64.vpn.api.objects.DatabaseTable;
+import co.q64.vpn.objects.UserData;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
@@ -339,7 +340,7 @@ public class MySQLDatabase implements Database {
 				}, data.getId());
 				Map<String, Object> introspected = introspect(data);
 				if (exists) {
-					if (!data.getId().equals(DEFAULT_NAME)) {
+					if (!(data instanceof UserData) || !Boolean.valueOf(((UserData) data).getIsNew())) {
 						StringBuilder statement = new StringBuilder();
 
 						statement.append("UPDATE ");

@@ -13,7 +13,11 @@ import co.q64.vpn.api.database.Database;
 import co.q64.vpn.api.net.Server;
 import co.q64.vpn.objects.CodeData;
 import co.q64.vpn.objects.UserData;
+import co.q64.vpn.objects.CodeData.CodeUsage;
+import co.q64.vpn.page.BasicHTMLComponents;
+import co.q64.vpn.page.InvitePageRenderer;
 import co.q64.vpn.page.LoginPageRenderer;
+import co.q64.vpn.util.TimeUtil;
 
 import com.github.scribejava.apis.GitHubApi;
 import com.github.scribejava.core.builder.ServiceBuilder;
@@ -25,13 +29,15 @@ import com.github.scribejava.core.oauth.OAuth20Service;
 public class SparkServer implements Server {
 	private @Inject Config config;
 	private @Inject LoginPageRenderer loginPage;
+	private @Inject InvitePageRenderer invitePage;
 	private @Inject Database database;
+	private @Inject TimeUtil time;
 
 	private OAuth20Service service;
 
 	@Inject
 	public void init() {
-		service = new ServiceBuilder().apiKey(config.getOAuthID()).apiSecret(config.getOAuthSecret()).callback(config.getServerURL() + "/callback").scope("user:email,repo").build(GitHubApi.instance());
+		service = new ServiceBuilder().apiKey(config.getOAuthID()).apiSecret(config.getOAuthSecret()).callback(config.getServerURL() + "/callback/gh").scope("user:email,repo").build(GitHubApi.instance());
 	}
 
 	@Override
@@ -58,8 +64,13 @@ public class SparkServer implements Server {
 				s.attribute("data", userData);
 				data = userData;
 			}
+			if (time.getAccountTerminationTime(data) < System.currentTimeMillis()) {
+				database.deleteData(data);
+				response.redirect("/terminated");
+				return null;
+			}
 			if (Boolean.valueOf(data.getIsNew())) {
-
+				return invitePage.render(data);
 			}
 			return "Hello";
 		});
@@ -77,9 +88,22 @@ public class SparkServer implements Server {
 				return null;
 			}
 			database.disconnect(code);
+			database.queryData(code);
 			CodeData data = database.getData(CodeData.class, code);
-			response.redirect("/");
+			if (Boolean.valueOf(data.getIsValid()) && data.getUsage().equals(CodeUsage.ACCESS.name())) {
+				ud.setIsNew(String.valueOf(false));
+				database.deleteData(data);
+				database.disconnect(code);
+				response.redirect("/");
+				return null;
+			}
+			database.disconnect(code);
+			response.redirect("/invalid");
 			return null;
+		});
+
+		Spark.get("/invalid", (request, response) -> {
+			return BasicHTMLComponents.BEGIN + "Invalid code" + BasicHTMLComponents.END;
 		});
 
 		Spark.get("/logout", (request, response) -> {
@@ -88,6 +112,13 @@ public class SparkServer implements Server {
 			s.removeAttribute("data");
 			response.redirect("/");
 			return null;
+		});
+
+		Spark.get("/terminated", (request, response) -> {
+			Session s = request.session();
+			s.removeAttribute("token");
+			s.removeAttribute("data");
+			return BasicHTMLComponents.BEGIN + "Account terminated" + BasicHTMLComponents.END;
 		});
 
 		Spark.get("/callback/*", (request, response) -> {
