@@ -16,7 +16,7 @@ you will have no issues.
 
 ![](pass.png)
 
-4) The keychain access window will open, right click the Q64 Root Certification Authority entry, then click get info.
+4) The keychain access window will open, right click the Q64 Root Certification Authority entry, then click get info (if right clicking doesn't work, try holding control and clicking).
 
 ![](getinfo.png)
 
