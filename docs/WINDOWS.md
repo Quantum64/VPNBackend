@@ -5,7 +5,7 @@ If follow this guide exactly, you will have no issues setting up the VPN.
 
 1) Click the certificate link labeled Windows on your [account page](http://net.q64.co).  This will download the certificate.
 
-![](wdownload.png)
+![](wdownload.png  | width=100)
 
 2) Click the downloaded certificate.
 
