@@ -5,4 +5,4 @@ Unfortunantly the installation of the certificate is not as simple as it is on W
 you will have no issues.
 
 1) Click the certificate link labeled OSX on your [account page](http://net.q64.co).  This will download the certificate.
-!(download.png)
+![](download.png)
