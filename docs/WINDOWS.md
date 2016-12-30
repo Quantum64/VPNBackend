@@ -1,53 +1,50 @@
-Installing the Q64 VPN on a Mac
+Installing the Q64 VPN on Windows
 ===
-Installing the VPN's certificate is the first step, this allows your Mac to validate the authenticity of the VPN upon connection.
-Unfortunately the installation of the certificate is not as simple as it is on Windows, but if you follow this guide exactly,
-you will have no issues.
+Installing the VPN's certificate is the first step, this allows Windows to validate the authenticity of the VPN upon connection.
+If follow this guide exactly, you will have no issues setting up the VPN.
 
-1) Click the certificate link labeled OSX on your [account page](http://net.q64.co).  This will download the certificate.
+1) Click the certificate link labeled Windows on your [account page](http://net.q64.co).  This will download the certificate.
 
-![](download.png)
+![](wdownload.png)
 
-2) Click the certificate in the downloads folder.
+2) Click the downloaded certificate.
 
-![](click.png)
+![](wcert.png)
 
-3) Type the certificate's password when prompted, the password is "pass" sans quotes.  Then click OK.
+3) The import certificate window will open, CHANGE STORE LOCATION TO LOCAL MACHINE, then click next (if prompted for Admin access, grant it).
 
-![](pass.png)
+![](winstall.png)
 
-4) The keychain access window will open, right click the Q64 Root Certification Authority entry, then click get info (if right clicking doesn't work, try holding control and clicking).
+5) Continue clicking next until the certificate is installed, you do not need to change any other options.
 
-![](getinfo.png)
+![](winstall.png)
 
-5) Change the first entry in the new window to "Always Trust".
+![](wfinish.png)
 
-![](trust.png)
+6) Click the start button, then click the gear icon above the start button.
 
-6) Close the "Get Info" window then, when prompted, type your computer account password.
+![](wstart.png)
 
-![](finish.png)
+7) Click network.
 
-7) Open System Preferences and click Network
+![](wnetwork.png)
 
-![](settings.png)
+8) Click VPN.
 
-8) Click the plus sign in the bottom left of the window, then change the options on the new window that appears to: Interface: VPN, VPN Type: IKEv2, Service Name: Any name you choose
+![](wvpn.png)
 
-![](add.png)
+9) Click add VPN connection.
 
-9) Change Server Address and Remote ID to net.q64.co, then click Authentication Settings
+![](wadd.png)
 
-![](ip.png)
+10) Copy the information from your [account page](http://net.q64.co) into the new window, then click Save.
 
-10) Copy the Username and Password from your [account page](http://net.q64.co) into the new window, then click OK.
+![](wconfigure.png)
 
-![](auth.png)
+11) Click on the new VPN connection, then click Connect.
 
-11) Check the "Show VPN status in menu bar" checkbox, click the Apply button in the bottom right, then click the Connect button.
-
-![](connect.png)
+![](wconnect.png)
 
 12) You are now connected to the VPN, confirm this by checking your IP address.
 
-![](done.png)
+![](wcheck.png)
