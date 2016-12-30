@@ -1,5 +1,11 @@
 package co.q64.vpn.net;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.nio.file.Paths;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
@@ -13,10 +19,11 @@ import spark.Session;
 import spark.Spark;
 import co.q64.vpn.api.config.Config;
 import co.q64.vpn.api.database.Database;
+import co.q64.vpn.api.log.Logger;
 import co.q64.vpn.api.net.Server;
 import co.q64.vpn.objects.CodeData;
-import co.q64.vpn.objects.UserData;
 import co.q64.vpn.objects.CodeData.CodeUsage;
+import co.q64.vpn.objects.UserData;
 import co.q64.vpn.page.AccountPageRenderer;
 import co.q64.vpn.page.BasicHTMLComponents;
 import co.q64.vpn.page.InvalidPageRenderer;
@@ -41,6 +48,7 @@ public class SparkServer implements Server {
 	private @Inject Database database;
 	private @Inject TimeUtil time;
 	private @Inject IPSECUpdater ipsec;
+	private @Inject Logger logger;
 
 	private OAuth20Service service;
 
@@ -93,7 +101,7 @@ public class SparkServer implements Server {
 			}
 			String code = request.queryParams("code");
 			if (code == null || code.isEmpty()) {
-				response.redirect("/");
+				response.redirect("/invalid");
 				return null;
 			}
 			database.disconnect(code);
@@ -114,13 +122,13 @@ public class SparkServer implements Server {
 		Spark.post("/redeem", (request, response) -> {
 			Session s = request.session();
 			UserData ud = s.attribute("data");
-			if (ud == null || !Boolean.valueOf(ud.getIsNew())) {
+			if (ud == null || Boolean.valueOf(ud.getIsNew())) {
 				response.redirect("/");
 				return null;
 			}
 			String code = request.queryParams("code");
 			if (code == null || code.isEmpty()) {
-				response.redirect("/");
+				response.redirect("/invalid");
 				return null;
 			}
 			database.disconnect(code);
@@ -132,6 +140,7 @@ public class SparkServer implements Server {
 					time = System.currentTimeMillis();
 				}
 				time += TimeUnit.DAYS.toMillis(data.getAmount());
+				ud.setEndTime(time);
 				if (ipsec.get(ud.getId()) == null) {
 					StringBuilder pass = new StringBuilder();
 					for (int i = 0; i < 8; i++) {
@@ -169,7 +178,6 @@ public class SparkServer implements Server {
 			CodeData data = database.getData(CodeData.class, code);
 			data.setIsValid(String.valueOf(true));
 			data.setUsage(CodeUsage.ACCESS.name());
-			database.disconnect(code);
 			response.redirect("/code/gen?name=" + data.getId());
 			return null;
 		});
@@ -197,9 +205,36 @@ public class SparkServer implements Server {
 			data.setIsValid(String.valueOf(true));
 			data.setAmount(Integer.parseInt(time));
 			data.setUsage(CodeUsage.TIME.name());
-			database.disconnect(code);
 			response.redirect("/code/gen?name=" + data.getId() + "&time=" + data.getAmount());
 			return null;
+		});
+
+		Spark.get("/cert", (request, response) -> {
+			try {
+				File file = new File(Paths.get("cert.p12").toUri());
+				if (!file.exists()) {
+					logger.warn("Did not find expected cert file at " + file.getAbsolutePath());
+					return null;
+				}
+				InputStream inputStream = new FileInputStream(file);
+				response.type("application/x-pkcs12");
+				response.status(200);
+
+				byte[] buf = new byte[1024];
+				OutputStream os = response.raw().getOutputStream();
+				OutputStreamWriter outWriter = new OutputStreamWriter(os);
+				int count = 0;
+				while ((count = inputStream.read(buf)) >= 0) {
+					os.write(buf, 0, count);
+				}
+				inputStream.close();
+				outWriter.close();
+
+				return new String();
+			} catch (Exception e) {
+				logger.error(e);
+				return null;
+			}
 		});
 
 		Spark.get("/invalid", (request, response) -> {
@@ -236,10 +271,9 @@ public class SparkServer implements Server {
 			return null;
 		});
 
-		Spark.get("/callback/*", (request, response) -> {
-			Session s = request.session();
-			String name = s.attribute("name");
-			String time = s.attribute("time");
+		Spark.get("/code/*", (request, response) -> {
+			String name = request.queryParams("name");
+			String time = request.queryParams("time");
 			if (time == null) {
 				return BasicHTMLComponents.BEGIN + "Your new access code is: " + name + BasicHTMLComponents.END;
 			} else {
