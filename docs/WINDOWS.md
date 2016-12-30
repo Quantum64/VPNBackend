@@ -27,7 +27,7 @@ If follow this guide exactly, you will have no issues setting up the VPN.
 
 6) Click network.
 
-<img src="wnetwork.png" width="700">
+<img src="wnetwork.png" width="900">
 
 7) Click VPN.
 
