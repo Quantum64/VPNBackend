@@ -15,36 +15,36 @@ If follow this guide exactly, you will have no issues setting up the VPN.
 
 <img src="winstall.png" width="700">
 
-5) Continue clicking next until the certificate is installed, you do not need to change any other options.
+4) Continue clicking next until the certificate is installed, you do not need to change any other options.
 
 <img src="wfinish.png" width="700">
 
 <img src="wimport.png" width="700">
 
-6) Click the start button, then click the gear icon above the start button.
+5) Click the start button, then click the gear icon above the start button.
 
 <img src="wstart.png" width="700">
 
-7) Click network.
+6) Click network.
 
 <img src="wnetwork.png" width="700">
 
-8) Click VPN.
+7) Click VPN.
 
 <img src="wvpn.png" width="700">
 
-9) Click add VPN connection.
+8) Click add VPN connection.
 
 <img src="wadd.png" width="700">
 
-10) Copy the information from your [account page](http://net.q64.co) into the new window, then click Save.
+9) Copy the information from your [account page](http://net.q64.co) into the new window, then click Save.
 
 <img src="wconfigure.png" width="700">
 
-11) Click on the new VPN connection, then click Connect.
+10) Click on the new VPN connection, then click Connect.
 
 <img src="wconnect.png" width="700">
 
-12) You are now connected to the VPN, confirm this by checking your IP address.
+11) You are now connected to the VPN, confirm this by checking your IP address.
 
 <img src="wcheck.png" width="700">
