@@ -9,42 +9,42 @@ If follow this guide exactly, you will have no issues setting up the VPN.
 
 2) Click the downloaded certificate.
 
-![](wcert.png)
+<img src="wcert.png" width="700">
 
 3) The import certificate window will open, CHANGE STORE LOCATION TO LOCAL MACHINE, then click next (if prompted for Admin access, grant it).
 
-![](winstall.png)
+<img src="winstall.png" width="700">
 
 5) Continue clicking next until the certificate is installed, you do not need to change any other options.
 
-![](wfinish.png)
+<img src="wfinish.png" width="700">
 
-![](wimport.png)
+<img src="wimport.png" width="700">
 
 6) Click the start button, then click the gear icon above the start button.
 
-![](wstart.png)
+<img src="wstart.png" width="700">
 
 7) Click network.
 
-![](wnetwork.png)
+<img src="wnetwork.png" width="700">
 
 8) Click VPN.
 
-![](wvpn.png)
+<img src="wvpn.png" width="700">
 
 9) Click add VPN connection.
 
-![](wadd.png)
+<img src="wadd.png" width="700">
 
 10) Copy the information from your [account page](http://net.q64.co) into the new window, then click Save.
 
-![](wconfigure.png)
+<img src="wconfigure.png" width="700">
 
 11) Click on the new VPN connection, then click Connect.
 
-![](wconnect.png)
+<img src="wconnect.png" width="700">
 
 12) You are now connected to the VPN, confirm this by checking your IP address.
 
-![](wcheck.png)
+<img src="wcheck.png" width="700">
