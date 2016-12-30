@@ -6,8 +6,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -15,6 +22,7 @@ import javax.inject.Singleton;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.UserService;
 
+import spark.Service;
 import spark.Session;
 import spark.Spark;
 import co.q64.vpn.api.config.Config;
@@ -51,17 +59,38 @@ public class SparkServer implements Server {
 	private @Inject Logger logger;
 
 	private OAuth20Service service;
+	private Map<String, Long> lastRequest = new HashMap<String, Long>();
+	private ScheduledThreadPoolExecutor pool = new ScheduledThreadPoolExecutor(1);
 
 	@Inject
 	public void init() {
 		service = new ServiceBuilder().apiKey(config.getOAuthID()).apiSecret(config.getOAuthSecret()).callback(config.getServerURL() + "/callback/gh").scope("user:email,repo").build(GitHubApi.instance());
+		pool.scheduleAtFixedRate(() -> {
+			Set<String> remove = new HashSet<String>();
+			for (Entry<String, Long> e : lastRequest.entrySet()) {
+				if (System.currentTimeMillis() > e.getValue() + TimeUnit.HOURS.toMillis(12)) {
+					remove.add(e.getKey());
+				}
+			}
+			lastRequest.keySet().removeAll(remove);
+			for (String s : remove) {
+				database.disconnect(s);
+			}
+		}, 10, 10, TimeUnit.MINUTES);
 	}
 
 	@Override
 	public void startServer() {
-		//Spark.secure(config.getJKSPath(), config.getJKSPassword(), null, null);
-		Spark.port(config.getServerPort());
+		Service http = Service.ignite();
+		http.port(config.getServerPort());
+		http.before("/*", (request, response) -> {
+			if (request.url().startsWith("http://")) {
+				response.redirect(request.url().replace("http://", "https://"), 301);
+			}
+		});
 
+		Spark.secure(config.getJKSPath(), config.getJKSPassword(), null, null);
+		Spark.port(443);
 		Spark.get("/", (request, response) -> {
 			Session s = request.session();
 			OAuth2AccessToken token = s.attribute("token");
@@ -237,12 +266,48 @@ public class SparkServer implements Server {
 			}
 		});
 
+		Spark.get("/osxcert", (request, response) -> {
+			try {
+				File file = new File(Paths.get("osxcert.p12").toUri());
+				if (!file.exists()) {
+					logger.warn("Did not find expected cert file at " + file.getAbsolutePath());
+					return null;
+				}
+				InputStream inputStream = new FileInputStream(file);
+				response.type("application/x-pkcs12");
+				response.status(200);
+
+				byte[] buf = new byte[1024];
+				OutputStream os = response.raw().getOutputStream();
+				OutputStreamWriter outWriter = new OutputStreamWriter(os);
+				int count = 0;
+				while ((count = inputStream.read(buf)) >= 0) {
+					os.write(buf, 0, count);
+				}
+				inputStream.close();
+				outWriter.close();
+
+				return new String();
+			} catch (Exception e) {
+				logger.error(e);
+				return null;
+			}
+		});
+
 		Spark.get("/invalid", (request, response) -> {
-			return invalidPage.render();
+			return invalidPage.render("That was an invalid code!");
+		});
+
+		Spark.get("/session", (request, response) -> {
+			return invalidPage.render("Your session was ended due to inactivity");
 		});
 
 		Spark.get("/logout", (request, response) -> {
 			Session s = request.session();
+			UserData data = s.attribute("data");
+			if (data != null) {
+				database.disconnect(data.getId());
+			}
 			s.removeAttribute("token");
 			s.removeAttribute("data");
 			response.redirect("/");
