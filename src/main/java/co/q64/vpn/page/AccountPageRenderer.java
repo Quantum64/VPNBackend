@@ -43,7 +43,7 @@ public class AccountPageRenderer implements PageRenderer {
 		result.append("Account status: " + (free ? "Free" : "Premium"));
 		result.append(BR);
 		if (free) {
-			result.append("All unpaid accounts are terminated after one week unless additional payment is received");
+			result.append("All unpaid accounts are terminated after one week unless more time is purchased");
 			result.append(BR);
 			result.append("Your account will be terminated in ");
 			result.append(SCRIPT_BEGIN);
@@ -66,7 +66,13 @@ public class AccountPageRenderer implements PageRenderer {
 			result.append(LINK_START);
 			result.append("cert");
 			result.append(LINK_END);
-			result.append("Click");
+			result.append("Windows");
+			result.append(LINK_FINAL);
+			result.append(" ");
+			result.append(LINK_START);
+			result.append("osxcert");
+			result.append(LINK_END);
+			result.append("OSX (Password: pass)");
 			result.append(LINK_FINAL);
 			result.append(BR);
 			result.append("Type: IKEv2");
@@ -74,6 +80,19 @@ public class AccountPageRenderer implements PageRenderer {
 			result.append("Username: " + data.getId());
 			result.append(BR);
 			result.append("Password: " + data.getPass());
+			result.append(BR);
+			result.append("VPN Setup Instructions: ");
+			result.append(LINK_START);
+			result.append("https://quantum64.github.io/VPNBackend/WINDOWS");
+			result.append(LINK_END);
+			result.append("Windows");
+			result.append(LINK_FINAL);
+			result.append(" ");
+			result.append(LINK_START);
+			result.append("https://quantum64.github.io/VPNBackend/OSX");
+			result.append(LINK_END);
+			result.append("OSX");
+			result.append(LINK_FINAL);
 			result.append("</pre>");
 		}
 		result.append(BR);

@@ -6,10 +6,10 @@ import javax.inject.Singleton;
 
 @Singleton
 public class InvalidPageRenderer {
-	public String render() {
+	public String render(String message) {
 		StringBuilder result = new StringBuilder();
 		result.append(BEGIN);
-		result.append("That was an invalid code!");
+		result.append(message);
 		result.append(BR);
 		result.append(BR);
 		result.append(LINK_START);
