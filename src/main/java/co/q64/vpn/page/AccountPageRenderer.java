@@ -18,6 +18,7 @@ import static co.q64.vpn.page.BasicHTMLComponents.SCRIPT_END;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import co.q64.vpn.api.config.Config;
 import co.q64.vpn.api.net.page.PageRenderer;
 import co.q64.vpn.objects.UserData;
 import co.q64.vpn.util.TimeUtil;
@@ -25,6 +26,7 @@ import co.q64.vpn.util.TimeUtil;
 @Singleton
 public class AccountPageRenderer implements PageRenderer {
 	private @Inject TimeUtil time;
+	private @Inject Config config;
 
 	@Override
 	public String render(UserData data) {
@@ -54,6 +56,24 @@ public class AccountPageRenderer implements PageRenderer {
 			result.append("window.onload = init;  function init(){countdown(function(ts) {document.getElementById('pageTimer').innerHTML = ts.toHTML(\"normal\"); }, " + data.getEndTime() + ", countdown.ALL);}");
 			result.append(SCRIPT_END);
 			result.append("<span id = \"pageTimer\" style=\"color:#FF0000\">timer</span>");
+			result.append(BR);
+			result.append(BR);
+			result.append("VPN Login Information");
+			result.append(BR);
+			result.append("<pre>    </pre>Address: " + config.getServerURL().replace("http://", new String()));
+			result.append(BR);
+			result.append("<pre>    </pre>Certificate: ");
+			result.append(LINK_START);
+			result.append("cert");
+			result.append(LINK_END);
+			result.append("<pre>    </pre>Click");
+			result.append(LINK_FINAL);
+			result.append(BR);
+			result.append("<pre>    </pre>Type: IKEv2");
+			result.append(BR);
+			result.append("<pre>    </pre>Username: " + data.getId());
+			result.append(BR);
+			result.append("<pre>    </pre>Password: " + data.getPass());
 		}
 		result.append(BR);
 		result.append(BR);
