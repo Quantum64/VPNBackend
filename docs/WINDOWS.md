@@ -17,9 +17,9 @@ If follow this guide exactly, you will have no issues setting up the VPN.
 
 5) Continue clicking next until the certificate is installed, you do not need to change any other options.
 
-![](winstall.png)
-
 ![](wfinish.png)
+
+![](wimport.png)
 
 6) Click the start button, then click the gear icon above the start button.
 
