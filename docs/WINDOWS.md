@@ -27,7 +27,7 @@ If follow this guide exactly, you will have no issues setting up the VPN.
 
 6) Click network.
 
-<img src="wnetwork.png" width="900">
+<img src="wnetwork.png" width="700">
 
 7) Click VPN.
 
@@ -39,7 +39,7 @@ If follow this guide exactly, you will have no issues setting up the VPN.
 
 9) Copy the information from your [account page](http://net.q64.co) into the new window, then click Save.
 
-<img src="wconfigure.png" width="700">
+<img src="wconfigure.png" width="900">
 
 10) Click on the new VPN connection, then click Connect.
 
