@@ -14,13 +14,13 @@ import java.util.Set;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.UserService;
+import org.json.JSONObject;
 
 import spark.Service;
 import spark.Session;
@@ -38,13 +38,16 @@ import co.q64.vpn.page.InvalidPageRenderer;
 import co.q64.vpn.page.InvitePageRenderer;
 import co.q64.vpn.page.LoginPageRenderer;
 import co.q64.vpn.util.IPSECUpdater;
+import co.q64.vpn.util.PayPalAPI;
 import co.q64.vpn.util.TimeUtil;
 
 import com.github.scribejava.apis.GitHubApi;
+import com.github.scribejava.apis.GoogleApi20;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.model.Token;
 import com.github.scribejava.core.oauth.OAuth20Service;
+import com.google.gson.JsonObject;
 
 @Singleton
 public class SparkServer implements Server {
@@ -57,14 +60,15 @@ public class SparkServer implements Server {
 	private @Inject TimeUtil time;
 	private @Inject IPSECUpdater ipsec;
 	private @Inject Logger logger;
+	private @Inject PayPalAPI paypal;
 
-	private OAuth20Service service;
+	private OAuth20Service githubService;
 	private Map<String, Long> lastRequest = new HashMap<String, Long>();
 	private ScheduledThreadPoolExecutor pool = new ScheduledThreadPoolExecutor(1);
 
 	@Inject
 	public void init() {
-		service = new ServiceBuilder().apiKey(config.getOAuthID()).apiSecret(config.getOAuthSecret()).callback(config.getServerURL() + "/callback/gh").scope("user:email,repo").build(GitHubApi.instance());
+		githubService = new ServiceBuilder().apiKey(config.getOAuthID()).apiSecret(config.getOAuthSecret()).callback(config.getServerURL() + "/callback/gh").scope("user:email,repo").build(GitHubApi.instance());
 		pool.scheduleAtFixedRate(() -> {
 			Set<String> remove = new HashSet<String>();
 			for (Entry<String, Long> e : lastRequest.entrySet()) {
@@ -77,6 +81,7 @@ public class SparkServer implements Server {
 				database.disconnect(s);
 			}
 		}, 10, 10, TimeUnit.MINUTES);
+
 	}
 
 	@Override
@@ -96,7 +101,7 @@ public class SparkServer implements Server {
 			OAuth2AccessToken token = s.attribute("token");
 			UserData data = s.attribute("data");
 			if (token == null) {
-				return loginPage.render(service.getAuthorizationUrl());
+				return loginPage.render(githubService.getAuthorizationUrl());
 			}
 
 			if (data == null) {
@@ -329,7 +334,7 @@ public class SparkServer implements Server {
 					response.redirect("/");
 					return null;
 				}
-				Token auth = service.getAccessToken(request.queryParams("code"));
+				Token auth = githubService.getAccessToken(request.queryParams("code"));
 				s.attribute("token", auth);
 			}
 			response.redirect("/");
@@ -344,6 +349,49 @@ public class SparkServer implements Server {
 			} else {
 				return BasicHTMLComponents.BEGIN + "Your new time code for " + time + " days is: " + name + BasicHTMLComponents.END;
 			}
+		});
+
+		// Paypal
+
+		Spark.post("/paypalnew/*", (request, response) -> {
+			int time = Integer.parseInt(request.queryParams("time"));
+			JSONObject object = new JSONObject();
+			String id = paypal.createPayment(time, time);
+			object.put("paymentID", id);
+			request.session().attribute("time", time);
+			return object.toString();
+		});
+
+		Spark.post("/paypalexec/*", (request, response) -> {
+			logger.info(request.url());
+			String id = request.queryParams("id");
+			String payer = request.queryParams("payer");
+			int time = request.session().attribute("time");
+			if (time == 0) {
+				logger.warn("Failed to get sub time");
+				return new JSONObject().toString();
+			}
+			if (paypal.executePayment(id, payer)) {
+				UserData ud = request.session().attribute("data");
+				long newtime = ud.getEndTime();
+				if (newtime < System.currentTimeMillis()) {
+					newtime = System.currentTimeMillis();
+				}
+				newtime += TimeUnit.DAYS.toMillis(time * 7);
+				ud.setEndTime(newtime);
+				logger.info("Added time");
+				return new JSONObject().toString();
+			}
+			logger.info("Fail payment exec");
+			return new JSONObject().toString();
+		});
+
+		Spark.get("/paypaldone", (request, response) -> {
+			return invalidPage.render("You have added time to your account.");
+		});
+
+		Spark.get("/paypalfail", (request, response) -> {
+			return invalidPage.render("Something went wrong during the transaction and you account has not been charged.");
 		});
 	}
 }

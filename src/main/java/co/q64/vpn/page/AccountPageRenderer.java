@@ -1,19 +1,6 @@
 package co.q64.vpn.page;
 
-import static co.q64.vpn.page.BasicHTMLComponents.BEGIN;
-import static co.q64.vpn.page.BasicHTMLComponents.BR;
-import static co.q64.vpn.page.BasicHTMLComponents.END;
-import static co.q64.vpn.page.BasicHTMLComponents.FORM_BEGIN_ACTION;
-import static co.q64.vpn.page.BasicHTMLComponents.FORM_END_ACTION;
-import static co.q64.vpn.page.BasicHTMLComponents.FORM_FINAL;
-import static co.q64.vpn.page.BasicHTMLComponents.FORM_SUBMIT;
-import static co.q64.vpn.page.BasicHTMLComponents.FORM_TEXT_BEGIN;
-import static co.q64.vpn.page.BasicHTMLComponents.FORM_TEXT_END;
-import static co.q64.vpn.page.BasicHTMLComponents.LINK_END;
-import static co.q64.vpn.page.BasicHTMLComponents.LINK_FINAL;
-import static co.q64.vpn.page.BasicHTMLComponents.LINK_START;
-import static co.q64.vpn.page.BasicHTMLComponents.SCRIPT_BEGIN;
-import static co.q64.vpn.page.BasicHTMLComponents.SCRIPT_END;
+import static co.q64.vpn.page.BasicHTMLComponents.*;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -32,7 +19,7 @@ public class AccountPageRenderer implements PageRenderer {
 	public String render(UserData data) {
 		boolean free = System.currentTimeMillis() > data.getEndTime();
 		StringBuilder result = new StringBuilder();
-		result.append(BEGIN);
+		result.append(BEGIN_ACC);
 		result.append("Hello " + data.getId() + " - ");
 		result.append(LINK_START);
 		result.append("logout");
@@ -97,10 +84,13 @@ public class AccountPageRenderer implements PageRenderer {
 		}
 		result.append(BR);
 		result.append(BR);
-		result.append("Current pricing: $1/week of VPN access with guaranteed 100mb/s bandwidth, payable to site owner");
+		result.append("Current pricing: $1/week of VPN access with guaranteed 100mb/s bandwidth");
 		result.append(BR);
 		result.append(BR);
-		result.append("Redeem time code (you get this when your purchase more time)");
+		result.append("Purchase time with PayPal");
+		result.append(BR);
+		result.append(PAYPAL_BUTTON);
+		result.append("Or redeem time code (cash purchases)");
 		result.append(FORM_BEGIN_ACTION);
 		result.append("redeem");
 		result.append(FORM_END_ACTION);

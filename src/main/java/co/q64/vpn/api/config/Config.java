@@ -16,19 +16,19 @@ public interface Config {
 	 * @return the port number
 	 */
 	public int getServerPort();
-	
+
 	/**
 	 * Gets the path of the JKS that contains our SSL cert
 	 * @return the JKS path
 	 */
 	public String getJKSPath();
-	
+
 	/**
 	 * Gets the password to decrypt the above JKS
 	 * @return the JKS password
 	 */
 	public String getJKSPassword();
-	
+
 	/**
 	 * Gets the URL users will access the server from
 	 * @return the URL
@@ -78,4 +78,16 @@ public interface Config {
 	 * @return the OAuth secret
 	 */
 	public String getOAuthSecret();
+
+	/**
+	 * Gets the Paypal id for express checkout
+	 * @return the Paypal id
+	 */
+	public String getPaypalID();
+
+	/**
+	 * Gets the Paypal secret that corresponds with the above id
+	 * @return the Paypal secret
+	 */
+	public String getPaypalSecret();
 }
