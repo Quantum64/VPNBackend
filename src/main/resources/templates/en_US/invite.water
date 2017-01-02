@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Invite Required</title>
+    <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyDkts8AdUltgn0whYiix57Hyau3KSGUoXs",
+            authDomain: "q64-vpns.firebaseapp.com"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
+
+</head>
+
+<body class="grey lighten-4">
+    <div class="container">
+        <h4 class="header col s12 light center">Activate Account</h4>
+        <h5 class="header col s12 light center">You need an access code to use this website</h5>
+        <form action="invite" method="POST">
+       		<div class="row center">
+    			<div class="input-field col s4 offset-s4">
+      				<input value="" id="input_code" type="text" class="validate" name="code">
+     				<label class="active" for="input_code">Access Code</label>
+					<button class="btn waves-effect waves-light" type="submit" name="action">Submit
+						<i class="material-icons right">send</i>
+					</button>
+    			</div>
+  			</div>
+  		</form>
+    </div>
+</body>
+
+</html>

@@ -5,12 +5,14 @@ import co.q64.vpn.api.objects.DatabaseTable;
 public class CodeData extends DatabaseTable {
 	private String id;
 	private String isValid;
+	private String isPerm;
 	private String usage;
 	private int amount;
 
 	public CodeData() {
 		this.id = new String();
 		this.isValid = String.valueOf(false);
+		this.isPerm = String.valueOf(false);
 		this.usage = CodeUsage.ACCESS.name();
 		this.amount = 1;
 	}
@@ -52,6 +54,14 @@ public class CodeData extends DatabaseTable {
 
 	public void setIsValid(String isValid) {
 		this.isValid = isValid;
+	}
+
+	public String getIsPerm() {
+		return isPerm;
+	}
+
+	public void setIsPerm(String isPerm) {
+		this.isPerm = isPerm;
 	}
 
 	public static enum CodeUsage {

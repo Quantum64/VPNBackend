@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Logging Out</title>
+    <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyDkts8AdUltgn0whYiix57Hyau3KSGUoXs",
+            authDomain: "q64-vpns.firebaseapp.com"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
+    <script type="text/javascript">
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                try {
+                    firebase.auth().signOut().then(function() {
+                        window.setTimeout(function() {
+                            window.location.href = "/";
+                        }, 1000);
+                    }, function(error) {
+                        window.setTimeout(function() {
+                            window.location.href = "/";
+                        }, 1000);
+                    });
+                } catch (err) {
+                    window.setTimeout(function() {
+                        window.location.href = "/";
+                    }, 1000);
+                }
+            } else {
+                window.setTimeout(function() {
+                    window.location.href = "/";
+                }, 1000);
+            }
+        });
+    </script>
+</head>
+
+<body class="grey lighten-4">
+    <div class="container">
+        <h4 class="header col s12 light center">You are being logged out...</h4>
+    </div>
+
+</body>
+
+</html>

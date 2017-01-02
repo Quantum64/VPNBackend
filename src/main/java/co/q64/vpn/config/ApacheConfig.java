@@ -66,16 +66,6 @@ public class ApacheConfig implements Config {
 	}
 
 	@Override
-	public String getOAuthID() {
-		return ApacheDefaultConfig.OAUTH.getString(ConfigurationKeys.GH_OAUTH_ID);
-	}
-
-	@Override
-	public String getOAuthSecret() {
-		return ApacheDefaultConfig.OAUTH.getString(ConfigurationKeys.GH_OAUTH_SECRET);
-	}
-
-	@Override
 	public String getPaypalID() {
 		return ApacheDefaultConfig.PAYPAL.getString(ConfigurationKeys.PAYPAL_ID);
 	}

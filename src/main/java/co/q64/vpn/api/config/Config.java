@@ -68,18 +68,6 @@ public interface Config {
 	public String getSQLPassword();
 
 	/**
-	 * Gets the OAuth id for the integration clients will use to login to the service
-	 * @return the oauth id
-	 */
-	public String getOAuthID();
-
-	/**
-	 * Gets the OAuth secret that corresponds with the above id
-	 * @return the OAuth secret
-	 */
-	public String getOAuthSecret();
-
-	/**
 	 * Gets the Paypal id for express checkout
 	 * @return the Paypal id
 	 */

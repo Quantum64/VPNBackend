@@ -1,0 +1,50 @@
+
+    <div class="col s12 m4">
+        <div class="card">
+            <div class="card-content black-text">
+                <span class="card-title">Flexible</span>
+                <p>This VPN does not require and special software to be installed on the client machines. It can connect using only the built in VPN clients included on both Windows and OSX based computers. Detailed instructions for setting up and connecting to the VPN will be provided upon purchase.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m4">
+        <div class="card">
+            <div class="card-content black-text">
+                <span class="card-title">Modern</span>
+                <p>This VPN uses cutting edge IKEv2 technology for key exchange and tunneling. This is the most advanced technology currently available for connecting to a virtual private network, and has no known weaknesses or attack vectors. We use a robust 4096 bit MODP key exchange, a ludicrously strong AES 256 bit cipher for packet encryption, and strong EAP authentication.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col s12 m4">
+        <div class="card">
+            <div class="card-content black-text">
+                <span class="card-title">Secure</span>
+                <p>While connected to this VPN, your real IP address will be completely hidden from any websites you visit. No one on your local network will be able to see any content you access over the VPN, or what websites you visit (we encrypt DNS requests too). You stay completely anonymous on this network, as we don&rsquo;t keep logs of customer activity.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m4">
+        <div class="card">
+            <div class="card-content black-text">
+                <span class="card-title">Affordable</span>
+                <p>Most VPN providers are very expensive, but our monthly subscription price of $4/months is less than half the price of any competing VPN provider. Payments can be made over PayPal, so your information is secure, and you can purchase as little as one week of VPN subscription at a time.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m4">
+        <div class="card">
+            <div class="card-content black-text">
+                <span class="card-title">Reliable</span>
+                <p>We serve VPN connections on distributed cloud infrastructure which an uptime rating of >99.99%. These machines use high power CPUs which will ensure the encryption and decryption of your data is fast, and that connections are reliable. Each user is guaranteed a 100mb/s connection to the VPN server, along with unlimited monthly data.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

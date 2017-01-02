@@ -29,16 +29,12 @@ public enum ApacheDefaultConfig {
 			new ConfigurationValue(ConfigurationKeys.SQL_USER, "root"),
 			new ConfigurationValue(ConfigurationKeys.SQL_PASS, "password")
 			),
-	OAUTH("oauth.properties",
-			new ConfigurationValue(ConfigurationKeys.GH_OAUTH_ID, "oauthid"),
-			new ConfigurationValue(ConfigurationKeys.GH_OAUTH_SECRET, "oauthsecret")
-			),
 	PAYPAL("paypal.properties",
 			new ConfigurationValue(ConfigurationKeys.PAYPAL_ID, "paypalid"),
 			new ConfigurationValue(ConfigurationKeys.PAYPAL_SECRET, "paypalsecret")
 			);
 	//formatter:on
-	
+
 	private String fileName;
 	private ConfigurationValue[] values;
 	private Configuration config;
@@ -149,10 +145,6 @@ public enum ApacheDefaultConfig {
 		public static String SQL_DB = "mysql-databse";
 		public static String SQL_USER = "mysql-username";
 		public static String SQL_PASS = "mysql-password";
-		public static String GH_OAUTH_ID = "gh-oauth-id";
-		public static String GH_OAUTH_SECRET = "gh-oauth-secret";
-		public static String GL_OAUTH_ID = "gl-oauth-id";
-		public static String GL_OAUTH_SECRET = "gl-oauth-secret";
 		public static String PAYPAL_ID = "paypal-id";
 		public static String PAYPAL_SECRET = "paypal-secret";
 	}

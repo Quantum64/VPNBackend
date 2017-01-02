@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Preauth</title>
+    <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyDkts8AdUltgn0whYiix57Hyau3KSGUoXs",
+            authDomain: "q64-vpns.firebaseapp.com"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
+
+</head>
+
+<body class="grey lighten-4">
+	  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">&nbsp;&nbsp;&nbsp;&nbsp;Q64 VPNs</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/">&nbsp;</a></li>
+
+      </ul>
+    </div>
+  </nav>
+    <div class="container">
+        <h3 class="header col s12 light center">The next generation VPN provider</h3>
+		<h5 class="header col s12 light center">Start using a virtual private network today</h5>	  
+		<div class="row">
+		<div class="col s12 m4">
+        <div class="card">
+            <div class="card-content black-text">
+                <span class="card-title">Nonrestrictive</span>
+                <p>This VPN will allow you to circumvent firewalls that prevent you from accessing certain websites. It will also allow you to access geo restricted content that is only available in certain areas. It will prevent other restrictive measures such as SSL inspection which can allow network administrators to restrict what you see, even on secure sites.</p>
+            </div>
+        </div>
+    </div>
+		~why~
+       	<div class="row center">
+			<h5 class="header col s12 light center">You're preauthorized to use this website!</h5>
+    		<div class="input-field col s4 offset-s4">
+				<button class="btn waves-effect waves-light" name="action"  onclick="location.href='https://q64.co';">Let's Go</button>
+    		</div>
+  			</div>
+    </div>
+</body>
+
+</html>

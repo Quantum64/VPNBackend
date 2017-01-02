@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Terms of Service</title>
+    <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyDkts8AdUltgn0whYiix57Hyau3KSGUoXs",
+            authDomain: "q64-vpns.firebaseapp.com"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
+
+</head>
+
+<body class="grey lighten-4">
+    <div class="container">
+        <h4 class="header col s12 light center">Terms of Service</h4>
+		DISCLAIMER OF WARRANTIES; LIABILITY LIMITATION
+		<br><br>
+QUANTUM DEVELOPMENT DOES NOT GUARANTEE, REPRESENT, OR WARRANT THAT YOUR USE OF THE SERVICES WILL BE UNINTERRUPTED OR ERROR-FREE, AND YOU AGREE THAT FROM TIME TO TIME QUANTUM DEVELOPMENT MAY REMOVE THE SERVICES FOR INDEFINITE PERIODS OF TIME, CANCEL THE SERVICES AT ANY TIME, OR OTHERWISE LIMIT OR DISABLE YOUR ACCESS TO THE SERVICES WITHOUT NOTICE TO YOU.
+<br><br>
+YOU EXPRESSLY AGREE THAT YOUR USE OF, OR INABILITY TO USE, THE SERVICES IS AT YOUR SOLE RISK. THE SERVICES ARE (EXCEPT AS EXPRESSLY STATED BY QUANTUM DEVELOPMENT ) PROVIDED "AS IS" AND "AS AVAILABLE" FOR YOUR USE, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NONINFRINGEMENT. BECAUSE SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES, THE ABOVE EXCLUSION OF IMPLIED WARRANTIES MAY NOT APPLY TO YOU.
+<br><br>
+IN NO CASE SHALL QUANTUM DEVELOPMENT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, PUNITIVE, SPECIAL, OR CONSEQUENTIAL DAMAGES ARISING FROM YOUR USE OF ANY OF THE SERVICES OR FOR ANY OTHER CLAIM RELATED IN ANY WAY TO YOUR USE OF THE SERVICES AND/OR CONTENT, INCLUDING, BUT NOT LIMITED TO, ANY ERRORS OR OMISSIONS IN ANY CONTENT, OR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF THE USE OF ANY CONTENT POSTED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THE SERVICES, EVEN IF ADVISED OF THEIR POSSIBILITY. BECAUSE SOME COUNTRIES, STATES OR JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR THE LIMITATION OF LIABILITY FOR CONSEQUENTIAL OR INCIDENTAL DAMAGES, IN SUCH COUNTRIES, STATES OR JURISDICTIONS, QUANTUM DEVELOPMENT'S LIABILITY SHALL BE LIMITED TO THE EXTENT SUCH LIMITATION IS PERMITTED BY LAW.
+<br><br>
+QUANTUM DEVELOPMENT SHALL USE REASONABLE EFFORTS TO PROTECT INFORMATION SUBMITTED BY YOU IN CONNECTION WITH THE SERVICES, BUT YOU AGREE THAT YOUR SUBMISSION OF SUCH INFORMATION IS AT YOUR SOLE RISK, AND YOU HEREBY RELEASE QUANTUM DEVELOPMENT FROM ANY AND ALL LIABILITY TO YOU FOR ANY LOSS OR LIABILITY RELATING TO SUCH INFORMATION IN ANY WAY.
+<br><br>
+QUANTUM DEVELOPMENT DOES NOT REPRESENT OR GUARANTEE THAT THE SERVICES WILL BE FREE FROM LOSS, CORRUPTION, ATTACK, VIRUSES, INTERFERENCE, HACKING, OR OTHER SECURITY INTRUSION, AND YOU HEREBY RELEASE QUANTUM DEVELOPMENT FROM ANY LIABILITY RELATING THERETO. YOU SHALL BE RESPONSIBLE FOR BACKING UP YOUR OWN SYSTEM, INCLUDING ANY CONTENT ACQUIRED OR RENTED THROUGH THE SERVICES.
+<br><br>
+QUANTUM DEVELOPMENT IS NOT RESPONSIBLE FOR DATA CHARGES YOU MAY INCUR FOR USING A VPN OVER A DATA CONNECTION.
+<br><br>
+WAIVER AND INDEMNITY
+<br><br>
+BY USING THE SERVICES, YOU AGREE, TO THE EXTENT PERMITTED BY LAW, TO INDEMNIFY AND HOLD QUANTUM DEVELOPMENT HARMLESS WITH RESPECT TO ANY CLAIMS ARISING OUT OF YOUR BREACH OF THIS AGREEMENT, YOUR USE OF THE SERVICES, OR ANY ACTION TAKEN BY QUANTUM DEVELOPMENT AS PART OF ITS INVESTIGATION OF A SUSPECTED VIOLATION OF THIS AGREEMENT OR AS A RESULT OF ITS FINDING OR DECISION THAT A VIOLATION OF THIS AGREEMENT HAS OCCURRED. YOU AGREE THAT YOU SHALL NOT SUE OR RECOVER ANY DAMAGES FROM QUANTUM DEVELOPMENT AS A RESULT OF ITS DECISION TO REMOVE OR REFUSE TO PROCESS ANY INFORMATION OR CONTENT, TO WARN YOU, TO SUSPEND OR TERMINATE YOUR ACCESS TO THE SERVICES, OR TO TAKE ANY OTHER ACTION DURING THE INVESTIGATION OF A SUSPECTED VIOLATION OR AS A RESULT OF QUANTUM DEVELOPMENT’S CONCLUSION THAT A VIOLATION OF THIS AGREEMENT HAS OCCURRED. THIS WAIVER AND INDEMNITY PROVISION APPLIES TO ALL VIOLATIONS DESCRIBED IN OR CONTEMPLATED BY THIS AGREEMENT.
+        <h4 class="header col s12 light center">Acceptable Use Policy</h4>
+		The following activities are, in general, prohibited.  The lists below are by no means exhaustive, but attempt to provide a framework for activities which fall into the category of unacceptable use. 
+<br><br>
+
+ 1. Violations of the rights of any person or company protected by copyright, trade secret, patent or other intellectual property, or similar laws or regulations, including, but not limited to, the installation or distribution of "pirated" or other software products that are not appropriately licensed for use.
+<br><br>
+
+ 2. Unauthorized copying of copyrighted material including, but not limited to, digitization and distribution of photographs from magazines, books or other copyrighted sources, copyrighted music, and the installation of any copyrighted software for which or the end user does not have an active license is strictly prohibited.
+<br><br>
+
+3. Accessing data, a server or an account for any purpose other than using the provided services, even if you have authorized access, is prohibited. 
+<br><br>
+
+4. Exporting software, technical information, encryption software or technology, in violation of international or regional export control laws, is illegal. The appropriate management should be consulted prior to export of any material that is in question. 
+<br><br>
+
+5. Introduction of malicious programs into the network or server (e.g., viruses, worms, Trojan horses, e-mail bombs, etc.). 
+<br><br>
+
+6. Revealing your account password to others or allowing use of your account by others. This includes family and other household members. 
+<br><br>
+
+7. Using a Quantum Development computing asset to actively engage in procuring or transmitting material that is in violation of sexual harassment or hostile workplace laws in the user's local jurisdiction. 
+<br><br>
+
+8. Making fraudulent offers of products, items, or services originating from any account. 
+<br><br>
+
+9. Using the Quantum Development network to breach legal contracts or academic handbooks/codes of conduct.
+<br><br>
+
+10. Effecting security breaches or disruptions of network communication. Security breaches include, but are not limited to, accessing data of which the user is not an intended recipient or logging into a server or account that the user is not expressly authorized to access. For purposes of this section, "disruption" includes, but is not limited to, network sniffing, pinged floods, packet spoofing, denial of service, and forged routing information for malicious purposes. 
+<br><br>
+
+11. Port scanning or security scanning is expressly prohibited.
+<br><br>
+
+ 12. Executing any form of network monitoring which will intercept data. 
+<br><br>
+
+13. Circumventing user authentication or security of any host, network or account. 
+<br><br>
+
+14. Introducing honeypots, honeynets, or similar technology on the Quantum Development network.
+<br><br>
+
+ 15. Interfering with or denying service to any user or network (for example, denial of service attack). 
+<br><br>
+
+16. Using any program/script/command, or sending messages of any kind, with the intent to interfere with, or disable, a user's terminal session, via any means, locally or via the Internet/Intranet/Extranet.
+
+       	<div class="row center">
+    		<div class="input-field col s4 offset-s4">
+				<button class="btn waves-effect waves-light" name="action"  onclick="window.close();">Done
+				</button>
+    		</div>
+  		</div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Invite Required</title>
+    <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyDkts8AdUltgn0whYiix57Hyau3KSGUoXs",
+            authDomain: "q64-vpns.firebaseapp.com"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
+
+</head>
+
+<body class="grey lighten-4">
+    <div class="container">
+        <h4 class="header col s12 light center">Agree to Terms of Service</h4>
+        <h5 class="header col s12 light center">You need to agree to our TOS and Acceptable Use Policy to use this website</h5>	
+		<div class="row center">
+		<a class="header col s12 light center">
+			<a href="#" onclick="window.open('https://q64.co/tos')">
+			Click to Open
+			</a>
+		</a>	
+		</div>		
+   		<div class="row center">
+
+    		<div class="input-field col s4 offset-s4">
+				<button class="btn waves-effect waves-light" onclick="window.location.href='https://q64.co/conftos'">I'm In</button>
+    		</div>
+  		</div>
+    </div>
+</body>
+
+</html>
