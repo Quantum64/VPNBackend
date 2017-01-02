@@ -15,7 +15,7 @@ If follow this guide exactly, you will have no issues setting up the VPN.
 
 <img src="winstall.png" width="700">
 
-4) Continue clicking next until the certificate is installed, you do not need to change any other options.
+4) Continue clicking next until the certificate is installed, you do not need to change any other options.  When you are asked for a password, LEAVE THE BOX BLANK and click next.
 
 <img src="wfinish.png" width="700">
 
