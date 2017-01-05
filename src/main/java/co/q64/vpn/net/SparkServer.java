@@ -34,6 +34,8 @@ import co.q64.vpn.objects.CodeData.CodeUsage;
 import co.q64.vpn.objects.UserData;
 import co.q64.vpn.page.AccountPage;
 import co.q64.vpn.page.DemoPage;
+import co.q64.vpn.page.EndpointNoauthPage;
+import co.q64.vpn.page.EndpointStatusPage;
 import co.q64.vpn.page.ErrorPage;
 import co.q64.vpn.page.ForceTosPage;
 import co.q64.vpn.page.InfoPage;
@@ -112,6 +114,54 @@ public class SparkServer implements Server {
 		Spark.secure(config.getJKSPath(), config.getJKSPassword(), null, null);
 		Spark.port(443);
 
+		Spark.get("/endpoint/win", (request, response) -> {
+			Session s = request.session();
+			FirebaseToken token = s.attribute("token");
+			UserData data = s.attribute("data");
+			if (token == null) {
+				response.redirect("/verify");
+				return null;
+			}
+			if (data == null) {
+				String id = token.getUid();
+				database.disconnect(id);
+				database.queryData(id);
+				UserData userData = database.getData(UserData.class, id);
+				s.attribute("data", userData);
+				data = userData;
+			}
+			if (time.getAccountTerminationTime(data) < System.currentTimeMillis()) {
+				database.deleteData(data);
+				response.redirect("/terminated");
+				return null;
+			}
+			if (Boolean.valueOf(data.getIsNew()) || !Boolean.valueOf(data.getIsTos())) {
+				response.redirect("/endpoint/noauth");
+				return null;
+			}
+			response.redirect("/status");
+			return null;
+		}, WaterTemplateEngine.waterEngine());
+
+		Spark.get("/endpoint/win/login", (request, response) -> {
+			return WaterTemplateEngine.render(new LoginPage(), request);
+		}, WaterTemplateEngine.waterEngine());
+
+		Spark.get("/endpoint/win/status", (request, response) -> {
+			Session s = request.session();
+			FirebaseToken token = s.attribute("token");
+			UserData data = s.attribute("data");
+			if (token == null || data == null || Boolean.valueOf(data.getIsNew()) || !Boolean.valueOf(data.getIsTos())) {
+				response.redirect("/");
+				return null;
+			}
+			return WaterTemplateEngine.render(new EndpointStatusPage(data, token.getName(), time.getAccountTerminationTime(data)), request);
+		}, WaterTemplateEngine.waterEngine());
+
+		Spark.get("/endpoint/win/noauth", (request, response) -> {
+			return WaterTemplateEngine.render(new EndpointNoauthPage(), request);
+		}, WaterTemplateEngine.waterEngine());
+
 		Spark.get("/login", (request, response) -> {
 			return WaterTemplateEngine.render(new LoginPage(), request);
 		}, WaterTemplateEngine.waterEngine());
@@ -123,17 +173,16 @@ public class SparkServer implements Server {
 		Spark.post("/token/*", (request, response) -> {
 			Session session = request.session();
 			String token = request.queryParams("user");
-			//logger.info("Auth start " + token);
-				auth.verifyIdToken(token).addOnSuccessListener(new OnSuccessListener<FirebaseToken>() {
+			auth.verifyIdToken(token).addOnSuccessListener(new OnSuccessListener<FirebaseToken>() {
 
-					@Override
-					public void onSuccess(FirebaseToken token) {
-						session.attribute("token", token);
-						logger.info("Auth accepted for " + token.getUid());
-					}
-				});
-				return "";
+				@Override
+				public void onSuccess(FirebaseToken token) {
+					session.attribute("token", token);
+					logger.info("Auth accepted for " + token.getUid());
+				}
 			});
+			return "";
+		});
 
 		Spark.get("/access", (request, response) -> {
 			Session s = request.session();
@@ -459,23 +508,6 @@ public class SparkServer implements Server {
 			s.removeAttribute("data");
 			return WaterTemplateEngine.render(new ErrorPage("Your account has been terminated"), request);
 		}, WaterTemplateEngine.waterEngine());
-
-		/*
-		Spark.get("/callback/*", (request, response) -> {
-			Session s = request.session();
-			Object token = s.attribute("token");
-			if (token == null) {
-				if (request.queryParams("code") == null || request.queryParams("code").isEmpty()) {
-					response.redirect("/");
-					return null;
-				}
-				Token auth = githubService.getAccessToken(request.queryParams("code"));
-				s.attribute("token", auth);
-			}
-			response.redirect("/");
-			return null;
-		});
-		*/
 
 		Spark.get("/code/*", (request, response) -> {
 			String name = request.queryParams("name");
