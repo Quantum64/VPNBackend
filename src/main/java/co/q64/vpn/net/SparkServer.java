@@ -114,6 +114,10 @@ public class SparkServer implements Server {
 		Spark.secure(config.getJKSPath(), config.getJKSPassword(), null, null);
 		Spark.port(443);
 
+		Spark.before("/*", (request, response) -> {
+			response.header("Strict-Transport-Security", "max-age=31622400; includeSubDomains");
+		});
+
 		Spark.get("/endpoint/win", (request, response) -> {
 			Session s = request.session();
 			FirebaseToken token = s.attribute("token");
