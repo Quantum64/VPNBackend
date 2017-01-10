@@ -32,7 +32,6 @@ integrate/
 # Maven #
 #########
 
-log/
 target/
 
 ###################
