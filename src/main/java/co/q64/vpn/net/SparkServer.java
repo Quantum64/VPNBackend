@@ -74,16 +74,14 @@ public class SparkServer implements Server {
 			logger.error("Could not find firebase config at " + firebase.getAbsolutePath());
 			return;
 		}
-		//formatter:off
+		// formatter:off
 		FirebaseOptions options = null;
 		try {
-			options = new FirebaseOptions.Builder()
-			  .setServiceAccount(new FileInputStream(firebase))
-			  .build();
+			options = new FirebaseOptions.Builder().setServiceAccount(new FileInputStream(firebase)).build();
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		//formatter:on
+		// formatter:on
 		FirebaseApp.initializeApp(options);
 		auth = FirebaseAuth.getInstance();
 		pool.scheduleAtFixedRate(() -> {
@@ -120,6 +118,9 @@ public class SparkServer implements Server {
 
 		Spark.get("/endpoint/win", (request, response) -> {
 			Session s = request.session();
+			if (s.attribute("endpoint") == null) {
+				s.attribute("endpoint", "win");
+			}
 			FirebaseToken token = s.attribute("token");
 			UserData data = s.attribute("data");
 			if (token == null) {
@@ -155,11 +156,13 @@ public class SparkServer implements Server {
 			Session s = request.session();
 			FirebaseToken token = s.attribute("token");
 			UserData data = s.attribute("data");
-			if (token == null || data == null || Boolean.valueOf(data.getIsNew()) || !Boolean.valueOf(data.getIsTos())) {
+			if (token == null || data == null || Boolean.valueOf(data.getIsNew())
+					|| !Boolean.valueOf(data.getIsTos())) {
 				response.redirect("/");
 				return null;
 			}
-			return WaterTemplateEngine.render(new EndpointStatusPage(data, token.getName(), time.getAccountTerminationTime(data)), request);
+			return WaterTemplateEngine.render(
+					new EndpointStatusPage(data, token.getName(), time.getAccountTerminationTime(data)), request);
 		}, WaterTemplateEngine.waterEngine());
 
 		Spark.get("/endpoint/win/noauth", (request, response) -> {
@@ -203,11 +206,13 @@ public class SparkServer implements Server {
 			Session s = request.session();
 			FirebaseToken token = s.attribute("token");
 			UserData data = s.attribute("data");
-			if (token == null || data == null || Boolean.valueOf(data.getIsNew()) || !Boolean.valueOf(data.getIsTos())) {
+			if (token == null || data == null || Boolean.valueOf(data.getIsNew())
+					|| !Boolean.valueOf(data.getIsTos())) {
 				response.redirect("/");
 				return null;
 			}
-			return WaterTemplateEngine.render(new AccountPage(data, token.getName(), time.getAccountTerminationTime(data)), request);
+			return WaterTemplateEngine
+					.render(new AccountPage(data, token.getName(), time.getAccountTerminationTime(data)), request);
 		}, WaterTemplateEngine.waterEngine());
 
 		Spark.get("/forcetos", (request, response) -> {
@@ -257,6 +262,10 @@ public class SparkServer implements Server {
 				UserData userData = database.getData(UserData.class, id);
 				s.attribute("data", userData);
 				data = userData;
+			}
+			if (s.attribute("endpoint") != null && s.attribute("endpoint").equals("win")) {
+				response.redirect("/endpoint/win");
+				return null;
 			}
 			if (time.getAccountTerminationTime(data) < System.currentTimeMillis()) {
 				database.deleteData(data);
@@ -577,11 +586,15 @@ public class SparkServer implements Server {
 		});
 
 		Spark.get("/paypaldone", (request, response) -> {
-			return WaterTemplateEngine.render(new InfoPage("Payment Successful", "Time has been added to your account"), request);
+			return WaterTemplateEngine.render(new InfoPage("Payment Successful", "Time has been added to your account"),
+					request);
 		}, WaterTemplateEngine.waterEngine());
 
 		Spark.get("/paypalfail", (request, response) -> {
-			return WaterTemplateEngine.render(new InfoPage("Payment Failure", "Something went wrong during the transaction and you account has not been charged"), request);
+			return WaterTemplateEngine.render(
+					new InfoPage("Payment Failure",
+							"Something went wrong during the transaction and you account has not been charged"),
+					request);
 		}, WaterTemplateEngine.waterEngine());
 	}
 }
